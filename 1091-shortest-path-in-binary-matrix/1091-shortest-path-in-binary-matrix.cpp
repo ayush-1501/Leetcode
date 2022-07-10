@@ -1,43 +1,36 @@
 class Solution {
 public:
+   vector<pair<int,int>> idx = {{-1,-1},{-1,1},{1,-1},{1,1},{0,1},{0,-1},{1,0},{-1,0}};
+    
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-          int n= grid.size();
-        vector<vector<int>>vis(n, vector<int>(n,0));
-        
-        if(grid[0][0]==1)return -1;
-        
-        queue<pair<int,int>>q;
-        int step=1,ans=1e9;
-        vector<pair<int,int>>dir={{-1,-1},{-1,1},{1,-1},{1,1},{0,1},{0,-1},{1,0},{-1,0}};
+        if(grid[0][0]!=0) return -1;
+        queue<pair<int,int>> q;
+        int n=grid.size();
+        int ans=INT_MAX;
         q.push({0,0});
+        int curStep=1;
+        vector<vector<int>> vis(n,vector<int> (n,0));
         while(!q.empty()){
-            int size= q.size();
-            while(size--){
-                int curi=q.front().first;
-                int curj=q.front().second;
-                if(curi==curj&& curi==n-1){
-                    ans=min(ans,step);
-                }
+            int t=q.size();
+            for(int i=0;i<t;i++){
+                int x=q.front().first;
+                int y=q.front().second;
                 q.pop();
-                for(auto k:dir){
-                    
-                    int x=curi+k.first;
-                    int y=curj+k.second;
-                    if(x>=0 && y>=0 && x<n && y<n && grid[x][y]==0&& !vis[x][y]){
-                        
-                        vis[x][y]=1;
-                        q.push({x,y});
-                        
-                    }
-                    
+                if(x==n-1 && y==n-1){
+                    ans=min(ans,curStep);
                 }
-                
+                for(auto j:idx){
+                    int xx=x+j.first;
+                    int yy=y+j.second;
+                    if(xx>=0 && xx<n && yy>=0 && yy<n && grid[xx][yy]==0 && !vis[xx][yy]){
+                        vis[xx][yy]=1;
+                        q.push({xx,yy});
+                    }
+                }
             }
-            
-            step++;
+            curStep++;
         }
-        
-        if(ans==1e9)return -1;
+        ans=(ans==INT_MAX?-1:ans);
         return ans;
     }
 };
