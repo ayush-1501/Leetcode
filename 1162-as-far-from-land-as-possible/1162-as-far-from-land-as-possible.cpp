@@ -7,8 +7,8 @@ class Solution
   public:
     int maxDistance(vector<vector<int>>& grid) 
     {
-        std::queue<std::pair<int, int>>q;
-        std::vector<std::vector<int>> dp(grid.size(), std::vector<int>(grid.size(), INT_MAX));
+        queue<std::pair<int, int>>q;
+        vector<std::vector<int>> dp(grid.size(), std::vector<int>(grid.size(), INT_MAX));
         for (int i = 0; i < grid.size(); i++)
         {
             for (int j = 0; j < grid.size(); j++)
@@ -43,12 +43,9 @@ class Solution
         }
         
         int res = -1;
-        for (int i = 0; i < grid.size(); i++)
-        {
-            for (int j = 0; j < grid.size(); j++)
-            {
-                if (dp[i][j] != 0 && dp[i][j] != INT_MAX)
-                {
+        for (int i = 0; i < grid.size(); i++){
+            for (int j = 0; j < grid.size(); j++){
+                if (dp[i][j] != 0 && dp[i][j] != INT_MAX){
                     res = max(res, dp[i][j]);
                 }
             }
