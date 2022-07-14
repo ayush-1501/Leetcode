@@ -2,7 +2,7 @@ class Solution {
 public:
    set<vector<int>> s;
 
-void solve(vector<int> nums, int i, vector<int> path){
+void solve(vector<int> &nums, int i, vector<int>& path){
     
     if(i == nums.size()){
         s.insert(path);
@@ -21,8 +21,8 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
     
     vector<vector<int>> res;
     sort(nums.begin(), nums.end());
-    
-    solve(nums, 0, {});
+    vector<int>dp;
+    solve(nums, 0,dp);
     
     
     for(auto i : s){
