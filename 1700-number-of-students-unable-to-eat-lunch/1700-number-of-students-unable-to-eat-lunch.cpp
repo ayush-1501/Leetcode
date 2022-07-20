@@ -10,7 +10,6 @@ public:
             if(st==sa){b.pop_front();counter=0;continue;}
             else{
                 a.push_back(st);
-                b.push_back(sa);
                 counter++;
             }
             if(counter==a.size()){break;}
