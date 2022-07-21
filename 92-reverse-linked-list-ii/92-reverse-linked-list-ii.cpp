@@ -18,10 +18,10 @@ public:
             }
             cur = pre->next;
             for (int i=0;i<right-left;++i){
-                ListNode *temp = pre->next;
+                ListNode *swap= pre->next;
                 pre->next = cur->next;
                 cur->next = cur->next->next;
-                pre->next->next = temp;
+                pre->next->next = swap;
             }
             return temp->next;
     }
