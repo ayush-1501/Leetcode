@@ -11,20 +11,14 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if(head==NULL or head->next==NULL){return true;}
-        vector<int>ans;
-        ListNode* ptr=head;
-        while(ptr!=NULL){
-            ans.emplace_back(ptr->val);
-            ptr=ptr->next;
+        string s;
+        while (head != NULL) {
+            s += head->val;
+            head = head->next;
         }
-        int s=0,l=ans.size()-1;
-        while(s<l){
-            if(ans[s]!=ans[l]){
-                return false;
-            }
-            s++;l--;
-        }
-        return true;
+        // test if a string is palindrome
+        string t = s;
+        reverse(t.begin(), t.end());
+        return s == t;
     }
 };
