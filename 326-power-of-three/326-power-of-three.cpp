@@ -2,9 +2,7 @@ class Solution {
 public:
     bool isPowerOfThree(int n) {
         if(n<=0){return false;}
-         double x=(double)n;
-        x=log10(x);
-        double y=log10(3);
-        return ceil(x/y) == floor(x/y);
+        while(n%3==0){n/=3;}
+        return n==1;
     }
 };
