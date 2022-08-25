@@ -1,18 +1,19 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-         map<char,int>m1,m2;
-        for(auto i:ransomNote){
-            m1[i]++;
-        }
+      map<char,int>mp;
         for(auto i:magazine){
-            m2[i]++;
+            mp[i]++;
         }
-        for(auto i:m1){
-            if(m2.count(i.first) and m2[i.first]>=i.second){
-               continue;
-            }else{
-               return false;
+        for(auto i:ransomNote){
+            if(mp.find(i)!=mp.end()){
+                mp[i]--;
+                if(mp[i]==0){
+                    mp.erase(i);
+                }
+            }
+            else{
+                return false;
             }
         }
         return true;
