@@ -2,14 +2,14 @@ class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
       map<char,int>mp;
-        for(auto i:magazine){
-            mp[i]++;
+        for(int i=0;i<magazine.length();i++){
+            mp[magazine[i]]++;
         }
-        for(auto i:ransomNote){
-            if(mp.find(i)!=mp.end()){
-                mp[i]--;
-                if(mp[i]==0){
-                    mp.erase(i);
+        for(int i=0;i<ransomNote.size();i++){
+            if(mp.find(ransomNote[i])!=mp.end()){
+                mp[ransomNote[i]]--;
+                if(mp[ransomNote[i]]==0){
+                    mp.erase(ransomNote[i]);
                 }
             }
             else{
