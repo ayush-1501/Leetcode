@@ -6,14 +6,14 @@ public:
             mp[magazine[i]]++;
         }
         for(int i=0;i<ransomNote.size();i++){
-            if(mp.find(ransomNote[i])!=mp.end()){
+            if(mp.find(ransomNote[i])==mp.end()){
+               return false;
+            }
+            else{
                 mp[ransomNote[i]]--;
                 if(mp[ransomNote[i]]==0){
                     mp.erase(ransomNote[i]);
                 }
-            }
-            else{
-                return false;
             }
         }
         return true;
