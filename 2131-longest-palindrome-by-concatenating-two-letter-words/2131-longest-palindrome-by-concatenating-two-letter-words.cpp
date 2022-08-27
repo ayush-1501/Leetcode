@@ -8,7 +8,7 @@ public:
         for(auto x:m){
             string rev =x.first;
             reverse(rev.begin(),rev.end());
-            if(m[rev]!=0){
+            if(m.find(rev)!=m.end()){
                 if(rev!=x.first)
                     ans+=4*min(m[rev],m[x.first]);
                 else{
