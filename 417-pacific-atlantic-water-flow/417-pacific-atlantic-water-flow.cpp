@@ -1,45 +1,35 @@
 class Solution {
-
-void dfs(int i,int j,vector<vector<int>>&h,vector<vector<int>>&vis,int previous,int N,int M)
-{
-    
-    if((i<0 or j<0 or i>=N or j>=M) or vis[i][j]==1 or h[i][j]<previous )return;   
-    
-    vis[i][j]=1;
-    
-     dfs(i+1,j,h,vis,h[i][j],N,M);
-     dfs(i-1,j,h,vis,h[i][j],N,M);
-     dfs(i,j+1,h,vis,h[i][j],N,M);
-     dfs(i,j-1,h,vis,h[i][j],N,M);
-}
 public:
-vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) 
-{
-    int N=heights.size(),M=heights[0].size();
-    vector<vector<int>>ans;
-    
-    vector<vector<int>>pacific(N,vector<int>(M,0));
-    vector<vector<int>>atlantic(N,vector<int>(M,0));
-    
-    for(int j=0;j<M;++j){
-        dfs(0,j,heights,pacific,heights[0][j],N,M);
-        dfs(N-1,j,heights,atlantic,heights[N-1][j],N,M);     
+void dfs(int row,int col,vector<vector<int>>&h,vector<vector<int>> &vis,int prev){
+        int n=h.size();
+        int m=h[0].size();
+        if(row<0 || row>=n || col<0 || col>=m || vis[row][col] || h[row][col]<prev) return;
+        vis[row][col]=1;
+        dfs(row-1,col,h,vis,h[row][col]);
+        dfs(row+1,col,h,vis,h[row][col]);
+        dfs(row,col-1,h,vis,h[row][col]);
+        dfs(row,col+1,h,vis,h[row][col]);
     }
     
-    for(int i=0;i<N;++i){
-        dfs(i,0,heights,pacific,heights[i][0],N,M);
-        dfs(i,M-1,heights,atlantic,heights[i][M-1],N,M);     
-    }
-    
-    
-    for(int i=0;i<N;++i) {
-        for(int j=0;j<M;++j){
-            if(pacific[i][j] && atlantic[i][j]){
-                ans.push_back({i,j});
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int n=heights.size();
+        int m=heights[0].size();
+        vector<vector<int>> p(n,vector<int> (m,0));
+        vector<vector<int>> a(n,vector<int> (m,0));
+        vector<vector<int>> ans;
+        for(int i=0;i<m;i++){
+            dfs(0,i,heights,p,heights[0][i]);
+            dfs(n-1,i,heights,a,heights[n-1][i]);
+        }
+        for(int i=0;i<n;i++){
+            dfs(i,0,heights,p,heights[i][0]);
+            dfs(i,m-1,heights,a,heights[i][m-1]);
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(p[i][j]==1 && a[i][j]==1) ans.push_back({i,j});
             }
         }
-    }
-    
-    return ans;
- }
+        return ans;
+    }  
 };
