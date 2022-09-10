@@ -10,12 +10,8 @@ public:
                     swap(mat[i][j], mat[j][i]);
                 }
             }
-            //instead of below code you can write------ reverse(mat.begin(), mat.end());
-            for(int i=0; i<n/2; ++i){
-                for(int j=0; j<n; ++j){
-                    swap(mat[j][i], mat[j][n-i-1]);
-                }
-            }
+            reverse(mat.begin(), mat.end());
+           
             if(mat==target)return 1;
         }
         return 0;
