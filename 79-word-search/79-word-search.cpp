@@ -1,33 +1,31 @@
 class Solution {
 public:
-    bool recur(vector<vector<char>>& board,string &word,int i,int dx,int dy,int N,int M){
-        if(dx<0 or dy<0 or dx>=N or dy>=M)return false;
-        if(i==word.size())return true;
-        if(i>word.size()){return false;}
-        if(board[dx][dy]!=word[i])return false;
-        board[dx][dy]='$';
-    
-        bool ans=recur(board,word,i+1,dx,dy+1,N,M)or 
-                 recur(board,word,i+1,dx,dy-1,N,M)or
-                 recur(board,word,i+1,dx-1,dy,N,M)or 
-                 recur(board,word,i+1,dx+1,dy,N,M);
-        
-        
-        board[dx][dy]=word[i];
-        return ans;
-        
-    }
-    bool exist(vector<vector<char>>& board, string word) {
-        if(board.size()==1 and board[0].size()==1 and word.size()==1){
-            if(board[0][0]==word[0]){
-                return true;
-            }
+   bool check(vector<vector<char>>& b,string &t,int r,int c,int in){
+        if(r<0 or r>=b.size() or c<0 or c>=b[0].size() or b[r][c]!=t[in]){
+            return false;
         }
-        for(int i=0;i<board.size();i++){
-            for(int j=0;j<board[0].size();j++){
-                 if(recur(board,word,0,i,j,board.size(),board[0].size())){
-                     return true;
-                 }
+        if(in==t.size()-1)
+            return true;
+       if(in>=t.size()){return false;}
+        
+       b[r][c]='$';
+       bool ans= check(b,t,r+1,c,in+1)or
+        check(b,t,r-1,c,in+1)or
+        check(b,t,r,c-1,in+1)or
+        check(b,t,r,c+1,in+1);
+       
+       
+       b[r][c]=t[in];
+        return ans;
+    }
+    bool exist(vector<vector<char>>& b, string w) {
+        for(int i=0;i<b.size();i++){
+            for(int j=0;j<b[0].size();j++){
+               if(b[i][j]==w[0]){
+                   if(check(b,w,i,j,0)){
+                       return true;
+                   }
+               }
             }
         }
         return false;
