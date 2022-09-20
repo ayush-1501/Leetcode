@@ -1,34 +1,26 @@
 class Solution {
 public:
-    vector<pair<int,int>>dir{{0,1},{1,0},{0,-1},{-1,0}};
+    void dfs(int i,int j,vector<vector<char>>& grid,int N,int M){
+        if(i<0 or j<0 or i>=N or j>=M or grid[i][j]=='0'){return;}
+        
+        grid[i][j]='0';
+        int dx[]={1,-1,0,0};
+        int dy[]={0,0,1,-1};
+        for(int l=0;l<=3;l++){
+            dfs(i+dx[l],j+dy[l],grid,N,M);
+        }
+
+    }
     int numIslands(vector<vector<char>>& grid) {
+        int c=0;
         int N=grid.size();
         int M=grid[0].size();
-        int c=0;
         for(int i=0;i<N;i++){
             for(int j=0;j<M;j++){
-              if(grid[i][j]=='0'){continue;}
-                queue<pair<int,int>>q;
-                q.push({i,j});
+                if(grid[i][j]=='0')continue;
+                 dfs(i,j,grid,N,M);
                 c++;
-                while(!q.empty()){
-                    int n=q.size();
-                    while(n--){
-                        pair<int,int>p=q.front();
-                        q.pop();
-                        grid[p.first][p.second]='0';
-                        for(auto k:dir){
-                            int x=p.first+k.first;
-                            int y=p.second+k.second;
-                            
-                            if(x>=0 and x<N and y>=0 and y<M and grid[x][y]=='1'){
-                                grid[x][y]=0;
-                                q.push({x,y});
-                            }
-                        }
-                    }
-                }
-            }    
+            }
         }
         return c;
     }
