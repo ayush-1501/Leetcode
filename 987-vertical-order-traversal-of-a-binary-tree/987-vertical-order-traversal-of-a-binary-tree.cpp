@@ -14,7 +14,7 @@ public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         if (!root) return {};
         
-        map<int, vector<pair<int, int>>> m;
+        map<int,vector<pair<int,int>>>m;
 
     
         stack<tuple<TreeNode*, int, int>> st;
@@ -30,12 +30,12 @@ public:
         
 
         vector<vector<int>> ans;
-        ans.reserve(size(m));
         for (auto& [col, v] : m) {
             sort(begin(v), end(v));
             vector<int> tmp;
-            tmp.reserve(size(v));
-            transform(begin(v), end(v), back_inserter(tmp), [](const pair<int, int>& p) { return p.second; });
+            transform(begin(v),end(v),back_inserter(tmp),[](
+                const pair<int,int>& p){return p.second;}
+            );
             ans.push_back(move(tmp));
         }
 
