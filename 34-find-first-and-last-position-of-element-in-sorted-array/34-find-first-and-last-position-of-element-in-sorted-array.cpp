@@ -1,41 +1,32 @@
 class Solution {
 public:
-    int firstIdx(vector<int> nums,int target){
-        int idx = -1;
-        int start = 0;
-        int end = nums.size()-1;
-        while(start<=end){
-            int mid = start+(end-start)/2;
-            if(nums[mid]==target){
-                idx = mid;
-                end=mid-1;
+    int bsearch(vector<int>&nums,int t,bool val){
+        int s=0;
+        int e=nums.size()-1;
+        int f=-1;
+        while(s<=e){
+            int m=s+(e-s)/2;
+            if(nums[m]==t){
+                f=m;
+                if(val){
+                    s=m+1;
+                }
+                else{
+                    e=m-1;
+                }
+                continue;
+                
             }
-            else if(nums[mid]<target) start=mid+1;
-            else end=mid-1;
+            else if(nums[m]<t)
+                s=m+1;
+            else 
+                e=m-1;
         }
-        return idx;
-        
-        
-    }
-    int lastIdx(vector<int> nums,int target){
-        int idx = -1;
-        int start = 0;
-        int end = nums.size()-1;
-        while(start<=end){
-            int mid = start+(end-start)/2;
-            if(nums[mid]==target){
-                idx = mid;
-                start=mid+1;
-            }
-            else if(nums[mid]<target) start=mid+1;
-            else end=mid-1;
-        }
-        return idx;
+        return f;
     }
     vector<int> searchRange(vector<int>& nums, int target) {
-        int first=firstIdx(nums,target);
-        int last=lastIdx(nums,target);
-        
-        return {first,last};
-    }     
+        int f1=bsearch(nums,target,0);
+        int f2=bsearch(nums,target,1);
+        return {f1,f2};
+    }
 };
