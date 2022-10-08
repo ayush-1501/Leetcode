@@ -1,5 +1,6 @@
 const int N=1e4;
  vector<int>g(N,-1);
+
 class dsu{
 public:
    dsu(int n){
@@ -16,6 +17,7 @@ public:
            return;
    }
 };
+
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
@@ -37,7 +39,6 @@ public:
         set<int>st;
         for(int i=0;i<n;i++){
             st.insert(stone.find_par(i));
-            cout<<g[i]<<" ";
         }
         return stones.size()-st.size();
     }
