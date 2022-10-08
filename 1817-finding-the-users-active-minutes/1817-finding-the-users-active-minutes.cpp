@@ -6,7 +6,7 @@ public:
            int id = logs[i][0], time = logs[i][1];
            mp[id].insert(time);
         }
-         vector<int>ans(k, 0);
+         vector<int>ans(k,0);
          for(auto it: mp){
            ans[it.second.size()-1]++;
          }
