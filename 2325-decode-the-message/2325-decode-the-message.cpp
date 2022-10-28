@@ -1,18 +1,23 @@
 class Solution {
 public:
     string decodeMessage(string key, string message) {
-       unordered_map<char,char>mp;
-        char alpha='a';
-       for(auto i:key){
-           if(i==' '){continue;}
-           else if(mp.count(i))continue;
-           else mp[i]=alpha++;
-       }
-        for(auto i:mp){cout<<i.first<<" "<<i.second<<" \n";}
+       stringstream ss(key);
+        string s;
+        char character='a';
+        map<char,char>mp;
+        while(ss>>s){
+            for(char i:s){
+                if(mp.count(i))continue;
+                else mp[i]=character++;
+            }
+        }
         string ans;
-        for(auto i:message){
-            if(i==' '){ans+=' ';}
-            else ans+=mp[i];
+        for(char i:message){
+            if(i!=' '){
+                ans+=mp[i];
+            }else{
+                ans+=" ";
+            }
         }
         return ans;
     }
