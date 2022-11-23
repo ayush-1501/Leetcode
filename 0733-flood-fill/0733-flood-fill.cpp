@@ -1,19 +1,18 @@
 class Solution {
 public:
-    void solve(vector<vector<int>>&image,int x,int i,int j,int color,int N,int M){
-        if(image[i][j]==color)return;
-        
+    void solve(vector<vector<int>>&image,int i,int j,int color,int x){
+        if(i>=image.size() or i<0 or i>=image[0].size() or j<0)return ;
+        if(image[i][j]!=x or image[i][j]==color)return;
         image[i][j]=color;
-        if(j+1<M and x==image[i][j+1])solve(image,x,i,j+1,color,N,M);
-        if(j-1>=0 and x==image[i][j-1])solve(image,x,i,j-1,color,N,M);
-        if(i+1<N and x==image[i+1][j])solve(image,x,i+1,j,color,N,M);
-        if(i-1>=0 and x==image[i-1][j])solve(image,x,i-1,j,color,N,M);
+        solve(image,i+1,j,color,x);
+        solve(image,i,j+1,color,x);
+        solve(image,i-1,j,color,x);
+        solve(image,i,j-1,color,x);
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int N=image.size(),M=image[0].size();
-        if(image[sr][sc]==color)return image;
         int old_color=image[sr][sc];
-        solve(image,old_color,sr,sc,color,N,M);
+        if(old_color==color)return image;
+        solve(image,sr,sc,color,old_color);
         return image;
     }
 };
