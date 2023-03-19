@@ -16,12 +16,9 @@ public:
     
     vector<vector<int>> res;
     
-    for(int i = 0 ; i < nums.size() - 2 ;i++)  
-    {
-        if(nums[i]>0)  
-            break;    
-        for(int j = i+1 ; j < nums.size() - 1 ; j++)
-        {
+    for(int i = 0 ; i < nums.size() - 2 ;i++)  {
+        if(nums[i]>0)  break;    
+        for(int j = i+1 ; j < nums.size() - 1 ; j++){
             int third = -1*(nums[i]+nums[j]);
              if(umap.count(third) and umap.find(third)->second > j)  
               res.push_back({nums[i] , nums[j] ,third});
